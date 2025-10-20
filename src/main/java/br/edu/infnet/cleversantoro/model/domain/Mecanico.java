@@ -1,35 +1,29 @@
 package br.edu.infnet.cleversantoro.model.domain;
 
-public class Mecanico {
+public class Mecanico extends Pessoa {
 	
 	private Integer id;
 
-	private String nome;
-	private String email;
-	private String cpf;
-	private String telefone;
 	private int matricula;
 	private double salario;
 	private String especialidade;
 	private boolean ativo;
+	private Endereco endereco;
 
 	
 	@Override
 	public String toString() {
 	    return String.format(
-	        "%5d | Nome: %-50s | Email: %-50s | CPF: %s | Telefone: %s | Matrícula: %05d | Salário: R$ %8.2f | Especialidade: %-50s | Ativo: %-3s",
-	        id,
-	        nome,
-	        email,
-	        cpf,
-	        telefone,
+	        "%s | Matrícula: %05d | Salário: R$ %8.2f | Especialidade: %-50s | Ativo: %-3s | Endereco: %s",
+	        super.toString(),
 	        matricula,
 	        salario,
 	        especialidade,
-	        ativo ? "Sim" : "Não"
+	        ativo ? "Sim" : "Não",
+	        endereco.getCep()
 	    );
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -38,30 +32,6 @@ public class Mecanico {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getCpf() {
-		return cpf;
-	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
 	public int getMatricula() {
 		return matricula;
 	}
@@ -85,6 +55,13 @@ public class Mecanico {
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 }

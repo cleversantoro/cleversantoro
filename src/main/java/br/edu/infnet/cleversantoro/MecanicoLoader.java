@@ -8,6 +8,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.cleversantoro.model.domain.Endereco;
 import br.edu.infnet.cleversantoro.model.domain.Mecanico;
 import br.edu.infnet.cleversantoro.model.domain.service.MecanicoService;
 
@@ -33,6 +34,14 @@ public class MecanicoLoader implements ApplicationRunner {
 
 			campos = linha.split(";");
 			
+			Endereco endereco = new Endereco();
+			endereco.setCep(campos[7]);
+			endereco.setBairro(null);
+			endereco.setEstado(null);
+			endereco.setLocalidade(null);
+			endereco.setLogradouro(null);
+			endereco.setUf(null);
+			
 			Mecanico Mecanico = new Mecanico();
 			Mecanico.setNome(campos[0]);
 			Mecanico.setEmail(campos[1]);
@@ -40,8 +49,8 @@ public class MecanicoLoader implements ApplicationRunner {
 			Mecanico.setTelefone(campos[3]);
 			Mecanico.setMatricula(Integer.valueOf(campos[4]));
 			Mecanico.setSalario(Double.valueOf(campos[5]));
-			Mecanico.setEspecialidade(campos[6]);
-			Mecanico.setAtivo(Boolean.valueOf(campos[7]));
+			Mecanico.setAtivo(Boolean.valueOf(campos[6]));
+			Mecanico.setEndereco(endereco);
 			
 			MecanicoService.incluir(Mecanico);
 			
