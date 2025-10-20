@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "08713c13-77c3-4cfb-bb18-fd0e86675618",
+		"name": "cleversantoroAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1923433"
+	},
+	"item": [
+		{
+			"name": "Mecanicos",
+			"item": [
+				{
+					"name": "ObterLista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/mecanicos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mecanicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incluir",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"nome\": \"\",\r\n        \"email\": \"\",\r\n        \"cpf\": \"\",\r\n        \"telefone\": \"\",\r\n        \"matricula\": 1001,\r\n        \"salario\": 2908.73,\r\n        \"especialidade\": \"Motor\",\r\n        \"ativo\": false\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/mecanicos/incluir",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mecanicos",
+								"incluir"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
