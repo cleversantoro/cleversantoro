@@ -35,7 +35,7 @@ public class MecanicoLoader implements ApplicationRunner {
 			campos = linha.split(";");
 			
 			Endereco endereco = new Endereco();
-			endereco.setCep(campos[7]);
+			endereco.setCep(campos[8]);
 			endereco.setBairro(null);
 			endereco.setEstado(null);
 			endereco.setLocalidade(null);
@@ -49,7 +49,8 @@ public class MecanicoLoader implements ApplicationRunner {
 			Mecanico.setTelefone(campos[3]);
 			Mecanico.setMatricula(Integer.valueOf(campos[4]));
 			Mecanico.setSalario(Double.valueOf(campos[5]));
-			Mecanico.setAtivo(Boolean.valueOf(campos[6]));
+			Mecanico.setEspecialidade(campos[6]);
+			Mecanico.setAtivo(Boolean.valueOf(campos[7]));
 			Mecanico.setEndereco(endereco);
 			
 			MecanicoService.incluir(Mecanico);
