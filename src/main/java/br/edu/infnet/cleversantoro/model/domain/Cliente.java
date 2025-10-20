@@ -6,6 +6,7 @@ public class Cliente extends Pessoa {
 
 	private String fidelidade;
 	private LocalDateTime dataCadastramento;
+	private Veiculo veiculo;
 
 	public String getFidelidade() {
 		return fidelidade;
@@ -13,10 +14,18 @@ public class Cliente extends Pessoa {
 	public void setFidelidade(String fidelidade) {
 		this.fidelidade = fidelidade;
 	}
+	
 	public LocalDateTime getDataCadastramento() {
 		return dataCadastramento;
 	}
 	public void setDataCadastramento(LocalDateTime dataCadastramento) {
 		this.dataCadastramento = dataCadastramento;
+	}
+	
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
 }
