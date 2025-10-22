@@ -1,4 +1,4 @@
-package br.edu.infnet.cleversantoro.interfaces;
+package br.edu.infnet.cleversantoro.model.domain.service;
 
 import java.util.List;
 

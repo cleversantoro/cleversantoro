@@ -1,10 +1,10 @@
 package br.edu.infnet.cleversantoro.exceptions;
 
-public class MecanicoNaoEncontratoException extends RuntimeException {
+public class ClienteNaoEncontratoException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public MecanicoNaoEncontratoException(String mensagem) {
+	public ClienteNaoEncontratoException(String mensagem) {
 		super(mensagem);
 	}
 }

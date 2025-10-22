@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import br.edu.infnet.cleversantoro.exceptions.MecanicoInvalidoException;
 import br.edu.infnet.cleversantoro.exceptions.MecanicoNaoEncontratoException;
-import br.edu.infnet.cleversantoro.interfaces.CrudService;
 import br.edu.infnet.cleversantoro.model.domain.Mecanico;
 
 @Service
