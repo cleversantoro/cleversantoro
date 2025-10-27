@@ -10,7 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.cleversantoro.model.domain.Cliente;
-import br.edu.infnet.cleversantoro.model.domain.service.ClienteService;
+import br.edu.infnet.cleversantoro.model.service.ClienteService;
 
 @Component
 public class ClienteLoader implements ApplicationRunner {

@@ -2,6 +2,8 @@ package br.edu.infnet.cleversantoro.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,58 +15,65 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.cleversantoro.model.domain.Mecanico;
-import br.edu.infnet.cleversantoro.model.domain.service.MecanicoService;
+import br.edu.infnet.cleversantoro.model.service.MecanicoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/mecanicos")
 public class MecanicoController {
 
-	private final MecanicoService MecanicoService;
-	
-	public MecanicoController(MecanicoService MecanicoService) {
-		this.MecanicoService = MecanicoService;
+	private final MecanicoService mecanicoService;
+
+	public MecanicoController(MecanicoService mecanicoService) {
+		this.mecanicoService = mecanicoService;
 	}
 
 	@PostMapping
-	public Mecanico incluir(@RequestBody Mecanico Mecanico) {
-		
-		Mecanico MecanicoIncluido = MecanicoService.incluir(Mecanico);
+	public ResponseEntity<Mecanico> incluir(@Valid @RequestBody Mecanico Mecanico) {
 
-		return MecanicoIncluido;
+		Mecanico mecanicoIncluido = mecanicoService.incluir(Mecanico);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(mecanicoIncluido);
 	}
 
 	@PutMapping("/{id}")
-	public Mecanico alterar(@PathVariable Integer id, @RequestBody Mecanico Mecanico) {
-
-		Mecanico MecanicoAlterado = MecanicoService.alterar(id, Mecanico);
-		
-		return MecanicoAlterado;
+	public ResponseEntity<Mecanico> alterar(@PathVariable Integer id, @RequestBody Mecanico Mecanico) {
+		Mecanico mecanicoAlterado = mecanicoService.alterar(id, Mecanico);
+		return ResponseEntity.ok(mecanicoAlterado);
 	}
 
 	@DeleteMapping("/{id}")
-	public void excluir(@PathVariable Integer id) {
-		MecanicoService.excluir(id);
+	public ResponseEntity<Void> excluir(@PathVariable Integer id) {
+		mecanicoService.excluir(id);
+
+		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping
-	public List<Mecanico> obterLista() {
+	public ResponseEntity<List<Mecanico>> obterLista() {
 		
-		return MecanicoService.obterLista();
+		List<Mecanico> lista = mecanicoService.obterLista();
+
+		if(lista.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		
+		return ResponseEntity.ok(lista);
 	}
-	
+
 	@GetMapping("/{id}")
-	public Mecanico obterPorId(@PathVariable Integer id) {
-		
-		Mecanico MecanicoObtido = MecanicoService.obterPorId(id);
-		
-		return MecanicoObtido;
+	public ResponseEntity<Mecanico> obterPorId(@PathVariable Integer id) {
+
+		Mecanico mecanicoObtido = mecanicoService.obterPorId(id);
+
+		return ResponseEntity.ok(mecanicoObtido);
 	}
-	
+
 	@PatchMapping("/{id}/inativar")
-	public Mecanico inativar(@PathVariable Integer id) {
-		
-		Mecanico MecanicoInativado = MecanicoService.inativar(id);
-		
-		return MecanicoInativado;
+	public ResponseEntity<Mecanico> inativar(@PathVariable Integer id) {
+
+		Mecanico mecanicoInativado = mecanicoService.inativar(id);
+
+		return ResponseEntity.ok(mecanicoInativado);
 	}
 }

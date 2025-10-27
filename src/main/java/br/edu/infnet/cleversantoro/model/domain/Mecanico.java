@@ -1,15 +1,31 @@
 package br.edu.infnet.cleversantoro.model.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
 public class Mecanico extends Pessoa {
 	
-	private Integer id;
-
+	@NotNull(message = "A matrícula é obrigatória.")
+	@Min(value = 1, message = "A matrícula deve ser um número positivo maior q zero.")
 	private int matricula;
+
+	@NotNull(message = "A matrícula é obrigatória.")
+	@Min(value = 1, message = "A matrícula deve ser um número positivo maior q zero.")
 	private double salario;
+
 	private String especialidade;
 	private boolean ativo;
-	private Endereco endereco;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "endereco_id")
+	@Valid
+	private Endereco endereco;
 	
 	@Override
 	public String toString() {
@@ -24,14 +40,6 @@ public class Mecanico extends Pessoa {
 	    );
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public int getMatricula() {
 		return matricula;
 	}

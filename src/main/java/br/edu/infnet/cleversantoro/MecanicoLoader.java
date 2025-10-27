@@ -8,17 +8,19 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.cleversantoro.model.domain.Endereco;
+import br.edu.infnet.cleversantoro.clients.ViaCepFeignClient;
 import br.edu.infnet.cleversantoro.model.domain.Mecanico;
-import br.edu.infnet.cleversantoro.model.domain.service.MecanicoService;
+import br.edu.infnet.cleversantoro.model.service.MecanicoService;
 
 @Component
 public class MecanicoLoader implements ApplicationRunner {
 	
 	private final MecanicoService MecanicoService;
+	private final ViaCepFeignClient cepFeignClient;
 	
-	public MecanicoLoader(MecanicoService MecanicoService) {
+	public MecanicoLoader(MecanicoService MecanicoService, ViaCepFeignClient cepFeignClient) {
 		this.MecanicoService = MecanicoService;
+		this.cepFeignClient = cepFeignClient;
 	}
 	
 	@Override
@@ -34,14 +36,6 @@ public class MecanicoLoader implements ApplicationRunner {
 
 			campos = linha.split(";");
 			
-			Endereco endereco = new Endereco();
-			endereco.setCep(campos[8]);
-			endereco.setBairro(null);
-			endereco.setEstado(null);
-			endereco.setLocalidade(null);
-			endereco.setLogradouro(null);
-			endereco.setUf(null);
-			
 			Mecanico Mecanico = new Mecanico();
 			Mecanico.setNome(campos[0]);
 			Mecanico.setEmail(campos[1]);
@@ -51,7 +45,7 @@ public class MecanicoLoader implements ApplicationRunner {
 			Mecanico.setSalario(Double.valueOf(campos[5]));
 			Mecanico.setEspecialidade(campos[6]);
 			Mecanico.setAtivo(Boolean.valueOf(campos[7]));
-			Mecanico.setEndereco(endereco);
+			Mecanico.setEndereco(cepFeignClient.findByCep(campos[8]));
 			
 			MecanicoService.incluir(Mecanico);
 			

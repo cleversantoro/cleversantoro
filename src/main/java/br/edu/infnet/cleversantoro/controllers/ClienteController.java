@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.infnet.cleversantoro.model.domain.Cliente; // Importar a classe Cliente
-import br.edu.infnet.cleversantoro.model.domain.service.ClienteService;
+import br.edu.infnet.cleversantoro.model.service.ClienteService;
 
 @RestController
 @RequestMapping("/api/clientes")
