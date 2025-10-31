@@ -7,7 +7,6 @@ public class Cliente extends Pessoa {
 
 	private String fidelidade;
 	private LocalDateTime dataCadastramento;
-	//private Veiculo veiculo;
 
 	@Override
     public String toString() {
@@ -40,10 +39,4 @@ public class Cliente extends Pessoa {
 		this.dataCadastramento = dataCadastramento;
 	}
 	
-	//public Veiculo getVeiculo() {
-	//	return veiculo;
-	//}
-	//public void setVeiculo(Veiculo veiculo) {
-	//	this.veiculo = veiculo;
-	//}
 }
