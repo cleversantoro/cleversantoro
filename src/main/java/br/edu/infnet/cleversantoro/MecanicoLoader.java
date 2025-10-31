@@ -6,12 +6,14 @@ import java.util.Collection;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.cleversantoro.clients.ViaCepFeignClient;
 import br.edu.infnet.cleversantoro.model.domain.Mecanico;
 import br.edu.infnet.cleversantoro.model.service.MecanicoService;
 
+@Order(1)
 @Component
 public class MecanicoLoader implements ApplicationRunner {
 	

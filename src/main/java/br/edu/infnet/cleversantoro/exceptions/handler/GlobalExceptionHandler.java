@@ -12,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.edu.infnet.cleversantoro.exceptions.ServicoInvalidoException;
+import br.edu.infnet.cleversantoro.exceptions.ServicoNaoEncontratoException;
 import br.edu.infnet.cleversantoro.exceptions.MecanicoInvalidoException;
 import br.edu.infnet.cleversantoro.exceptions.MecanicoNaoEncontratoException;
 
@@ -52,6 +54,30 @@ public class GlobalExceptionHandler {
 		mapa.put("status", HttpStatus.NOT_FOUND.toString());
 		mapa.put("error", e.getMessage());
 		mapa.put("detail", "O Mecanico solicitado não foi encontrado na base de dados!");
+		
+		return new ResponseEntity<Map<String,String>>(mapa, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(ServicoInvalidoException.class) // Adicionado
+	public ResponseEntity<Map<String, String>> handleServicoInvalidoException(ServicoInvalidoException e){
+		Map<String, String> mapa = new HashMap<String, String>();
+
+		mapa.put("timestamp", LocalDateTime.now().toString());
+		mapa.put("status", HttpStatus.BAD_REQUEST.toString());
+		mapa.put("error", e.getMessage());
+		mapa.put("detail", "Verifique os dados fornecidos para o Servico!");
+		
+		return new ResponseEntity<Map<String,String>>(mapa, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(ServicoNaoEncontratoException.class) // Adicionado
+	public ResponseEntity<Map<String, String>> handleServicoNaoEncontratoException(ServicoNaoEncontratoException e){
+		Map<String, String> mapa = new HashMap<String, String>();
+
+		mapa.put("timestamp", LocalDateTime.now().toString());
+		mapa.put("status", HttpStatus.NOT_FOUND.toString());
+		mapa.put("error", e.getMessage());
+		mapa.put("detail", "O Servico solicitado não foi encontrado na base de dados!");
 		
 		return new ResponseEntity<Map<String,String>>(mapa, HttpStatus.NOT_FOUND);
 	}

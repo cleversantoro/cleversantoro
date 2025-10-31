@@ -65,10 +65,10 @@ public class MecanicoService implements CrudService<Mecanico, Integer> {
 	@Override
 	public Mecanico obterPorId(Integer id) {
 		if(id == null || id <= 0) {
-			throw new IllegalArgumentException("o ID utilizado na busca do vendedor não pode ser nulo/zero/negativo");
+			throw new IllegalArgumentException("o ID utilizado na busca do Mecanico não pode ser nulo/zero/negativo");
 		}
 
-		return mecanicoRepository.findById(id).orElseThrow(() -> new MecanicoNaoEncontratoException("O vendedor com o ID ["+id+"] não foi encontrado!"));
+		return mecanicoRepository.findById(id).orElseThrow(() -> new MecanicoNaoEncontratoException("O Mecanico com o ID ["+id+"] não foi encontrado!"));
 	}
 
 	public Mecanico inativar(Integer id) {
@@ -76,12 +76,20 @@ public class MecanicoService implements CrudService<Mecanico, Integer> {
 		Mecanico mecanico = obterPorId(id);
 		
 		if(!mecanico.isAtivo()) {
-			System.err.println("O vendedor "+mecanico.getNome()+" não está inativo!");
+			System.err.println("O Mecanico "+mecanico.getNome()+" não está inativo!");
 			return mecanico;
 		}
 		
 		mecanico.setAtivo(false);
 
 		return mecanicoRepository.save(mecanico);
+	}
+
+	public Mecanico obterPorCpf(String cpf) {
+		if(cpf == null || cpf.trim().isEmpty()) {
+			throw new IllegalArgumentException("O CPF utilizado na busca do Mecanico não pode ser nulo ou vazio.");
+		}
+		
+		return mecanicoRepository.findByCpf(cpf).orElseThrow(() -> new MecanicoNaoEncontratoException("O Mecanico com o CPF ["+cpf+"] não foi encontrado!"));
 	}
 }
