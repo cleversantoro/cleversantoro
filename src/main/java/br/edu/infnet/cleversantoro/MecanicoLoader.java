@@ -54,9 +54,9 @@ public class MecanicoLoader implements ApplicationRunner {
 			linha = leitura.readLine();
 		}
 
-		Collection<Mecanico> Mecanicoes = MecanicoService.obterLista();
+		Collection<Mecanico> Mecanicos = MecanicoService.obterLista();
 		
-		Mecanicoes.forEach(System.out::println);
+		Mecanicos.forEach(System.out::println);
 		
 		leitura.close();
 	}

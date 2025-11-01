@@ -8,66 +8,82 @@ import java.util.Collection;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+//import org.springframework.core.annotation.Order;
+
 
 import br.edu.infnet.cleversantoro.model.domain.Cliente;
 import br.edu.infnet.cleversantoro.model.service.ClienteService;
 
+//@Order(3)
 @Component
 public class ClienteLoader implements ApplicationRunner {
     
-    private final ClienteService ClienteService;
+    private final ClienteService clienteService;
 
-    public ClienteLoader(ClienteService ClienteService) {
-        this.ClienteService = ClienteService;
+    public ClienteLoader(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
     
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("[ClienteLoader] Iniciando carregamento de Clientees...");
-
-        try (FileReader arquivo = new FileReader("clientes-listagem.csv");
-             BufferedReader leitura = new BufferedReader(arquivo)) {
-        
-            String linha = leitura.readLine(); // Lê o cabeçalho
+    	
+    	System.out.println("[ServicoLoader] Iniciando carregamento de Clientes...");
+    	
+        try (
+        		FileReader arquivo = new FileReader("clientes-listagem.csv");
+        		BufferedReader leitura = new BufferedReader(arquivo)
+        	)
+        {
+            
+        	String linha = leitura.readLine();
 
             if (linha == null || linha.isEmpty()) {
                 System.out.println("[ClienteLoader] Arquivo CSV de Clientees vazio ou sem cabeçalho.");
                 return;
             }
             
-            linha = leitura.readLine();
+            //linha = leitura.readLine();
+            
 
             while(linha != null) {
 
-                String[] campos = linha.split(";");
-
+            	String[] campos = linha.split(";");
+            	
                 if (campos.length >= 5) {
-                    Cliente Cliente = new Cliente();
+
+                	Cliente Cliente = new Cliente();
                     Cliente.setNome(campos[0]);
                     Cliente.setEmail(campos[1]);
                     Cliente.setCpf(campos[2]);
                     Cliente.setTelefone(campos[3]);
                     Cliente.setFidelidade(campos[4]);
                     
-                    ClienteService.incluir(Cliente);
-                } else {
+                    clienteService.incluir(Cliente);
+                } 
+                else {
                     System.err.println("[ClienteLoader] Linha inválida no CSV (número de campos insuficiente): " + linha);
                 }
                 
                 linha = leitura.readLine();
             }
 
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             System.err.println("[ClienteLoader] Erro ao ler o arquivo Clientees-listagem.csv: " + e.getMessage());
         }
 
-        Collection<Cliente> Clientes = ClienteService.obterLista();
+        Collection<Cliente> clientes = clienteService.obterLista();
+        
+        //clientes.forEach(System.out::println);
+        
+        //leitura.close();
         
         System.out.println("\n--- Clientes Carregados ---");
-        if (Clientes.isEmpty()) {
+        if (clientes.isEmpty()) {
             System.out.println("Nenhum Cliente foi carregado.");
-        } else {
-            Clientes.forEach(System.out::println);
+        } 
+        else {
+            clientes.forEach(System.out::println);
         }
         System.out.println("----------------------------\n");
     }

@@ -2,7 +2,15 @@ package br.edu.infnet.cleversantoro.model.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+//import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+//import jakarta.persistence.JoinColumn;
+//import jakarta.persistence.ManyToOne;
+//import jakarta.validation.Valid;
+//import jakarta.validation.constraints.Min;
+//import jakarta.validation.constraints.NotNull;
 
+@Entity
 public class Cliente extends Pessoa {
 
 	private String fidelidade;
